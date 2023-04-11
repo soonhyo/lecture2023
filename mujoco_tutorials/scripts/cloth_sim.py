@@ -113,7 +113,7 @@ class MujocoSim():
             if self.mujoco_command is not None:
                 if self.mujoco_command == "reset":
                     mujoco.mj_resetData(self.model, self.data)
-                    mujoco.mj_.forward(self.model, self.data)
+                    mujoco.mj_forward(self.model, self.data)
                 self.mujoco_command = None
 
             # actuation
