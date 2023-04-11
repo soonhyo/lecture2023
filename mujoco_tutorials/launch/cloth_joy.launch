@@ -1,0 +1,4 @@
+<launch>
+  <node name="rqt_virtual_joy" pkg="rqt_virtual_joy" type="rqt_virtual_joy"/>
+  <node name="cloth_transform" pkg="topic_tools" type="transform" args="/joy /mujoco_target_angle std_msgs/Float32MultiArray 'std_msgs.msg.Float32MultiArray(data=m.axes)' --import std_msgs rospy numpy --wait-for-start"/>
+</launch>
