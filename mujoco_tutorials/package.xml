@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mujoco_tutorials</name>
+  <version>0.0.0</version>
+  <description>mujoco tutorials package</description>
+
+  <maintainer email="kawaharazuka@jsk.imi.i.u-tokyo.ac.jp">Kento Kawaharazuka</maintainer>
+  <license>MIT</license>
+  <author email="kawaharazuka@jsk.imi.i.u-tokyo.ac.jp">Kento Kawaharazuka</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>message_runtime</depend>
+  <depend>message_generation</depend>
+
+</package>
