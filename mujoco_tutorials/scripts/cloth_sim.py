@@ -20,7 +20,7 @@ class MujocoSim():
         self.rospack = RosPack()
 
         # initialization of model, data, viewer of mujoco
-        model_path = self.rospack.get_path("mujoco_tutorials") + "/models/CLOTHROBOT.xml"
+        model_path = self.rospack.get_path("mujoco_tutorials") + "/models/cloth_robot.xml"
         print("# model path: {}".format(model_path))
         self.model = mujoco.MjModel.from_xml_path(model_path)
         self.data = mujoco.MjData(self.model)
