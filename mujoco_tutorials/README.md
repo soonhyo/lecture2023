@@ -4,7 +4,9 @@
 ```bash
 pip3 install rospkg
 pip3 install mujoco
-pip3 install mujoco-python-viewer
+git clone git@github.com:rohanpsingh/mujoco-python-viewer.git
+cd mujoco-python-viewer
+pip3 install -e .
 ```
 
 ```bash
@@ -23,6 +25,14 @@ wstool init .
     local-name: misc/rqt_virtual_joystick
     uri: git@github.com:haraduka/rqt_virtual_joystick.git
     version: noetic-devel
+- git:
+    local-name: misc/franka_ros
+    uri: git@github.com:frankaemika/franka_ros.git
+    version: develop
+- git:
+    local-name: misc/mujoco_menagerie
+    uri: git@github.com:deepmind/mujoco_menagerie.git
+    version: main
 ```
 
 ```bash
@@ -34,7 +44,7 @@ catkin build mujoco_tutorials
 source devel/setup.bash
 ```
 
-if you want to publish camera image, please install https://github.com/ros-perception/vision_opencv by Python3 as below,
+For ubuntu18.04, if you want to publish camera image, please install https://github.com/ros-perception/vision_opencv by Python3 as below,
 ```bash
 mkdir -p ~/python3_ws/src
 cd ~/python3_ws

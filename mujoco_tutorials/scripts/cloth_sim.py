@@ -26,40 +26,17 @@ class MujocoSim():
         self.data = mujoco.MjData(self.model)
         viewer = mujoco_viewer.MujocoViewer(self.model, self.data)
 
-        # generate mask for each joint type
-        joint_mask_free = np.where(self.model.jnt_type==0) # pick just the free joints (7 DoF)
-        joint_mask_ball = np.where(self.model.jnt_type==1) # pick just the ball joints (4 DoF)
-        joint_mask_else = np.where(self.model.jnt_type>1) # pick the slide (2) and hinge (3) joints (1 DoF)
-
         # construct JointState message
         jointstates_msg = JointState()
-        joint_names = [self.model.joint(i).name for i in range(self.model.njnt)]
-        joint_names_free = list(np.array(joint_names)[joint_mask_free])
-        joint_names_ball = list(np.array(joint_names)[joint_mask_ball])
-        joint_names_else = list(np.array(joint_names)[joint_mask_else])
-
-        # attach suffixes to joint names of free&ball joints to specify their DoFs
-        jointstates_msg.name = []
-        for joint_name_free in joint_names_free:
-            jointstates_msg.name += ["{}_{}".format(joint_name_free, suffix) for suffix in ["x","y","z","q0","q1","q2","q3"]]
-        for joint_name_ball in joint_names_ball:
-            jointstates_msg.name += ["{}_{}".format(joint_name_ball, suffix) for suffix in ["q0","q1","q2","q3"]]
-        jointstates_msg.name += joint_names_else
+        jointstates_msg.name = [self.model.joint(i).name for i in range(self.model.njnt)]
         jointstates_msg.effort = np.zeros(len(jointstates_msg.name))
-        jointstates_msg.velocity = np.zeros(len(jointstates_msg.name))
 
-        # create masks that save the qpos indices for each joint type.
-        qpos_mask_free = (np.arange(7)+self.model.jnt_qposadr[joint_mask_free].reshape(-1,1)).flatten()
-        qpos_mask_ball = (np.arange(4)+self.model.jnt_qposadr[joint_mask_ball].reshape(-1,1)).flatten()
-        qpos_mask_else = self.model.jnt_qposadr[joint_mask_else]
-
-        mujoco.mj_step(self.model, self.data)
         self.mujoco_command = None
-        self.target_angle = np.zeros(self.model.nu, dtype=np.float32)
+        self.ctrl_ref = np.zeros(self.model.nu, dtype=np.float32)
 
         # set up publishers and subscribers
         rospy.Subscriber("mujoco_command", String, callback=self.mujoco_command_callback, queue_size=1)
-        rospy.Subscriber("mujoco_target_angle", Float32MultiArray, callback=self.target_angle_callback, queue_size=1)
+        rospy.Subscriber("mujoco_ctrl_ref", Float32MultiArray, callback=self.ctrl_callback, queue_size=1)
         jointstates_pub = rospy.Publisher("joint_mujoco_states", JointState, queue_size=1)
 
         # construct camera msg
@@ -113,27 +90,20 @@ class MujocoSim():
             if self.mujoco_command is not None:
                 if self.mujoco_command == "reset":
                     mujoco.mj_resetData(self.model, self.data)
+                    self.ctrl_ref = np.zeros(self.model.nu, dtype=np.float32)
                     mujoco.mj_forward(self.model, self.data)
                 self.mujoco_command = None
 
             # actuation
             for i in range(self.model.nu):
-                self.data.actuator(i).ctrl[:] = self.target_angle[i:i+1] # [rad]
+                self.data.actuator(i).ctrl[:] = self.ctrl_ref[i:i+1] # [rad]
             mujoco.mj_step(self.model, self.data, nstep=1)
 
             # publish rostopic
             current_time = rospy.Time.now()
             jointstates_msg.header.stamp = current_time
-            qpos_free = self.data.qpos[qpos_mask_free]
-            qpos_ball = self.data.qpos[qpos_mask_ball]
-            qpos_else_raw = self.data.qpos[qpos_mask_else]
-            # clip values to within range for joints with limited range.
-            qpos_else_clipped = qpos_else_raw*(self.model.jnt_limited[joint_mask_else]==0) \
-                    + np.clip(qpos_else_raw, self.model.jnt_range[joint_mask_else,0], self.model.jnt_range[joint_mask_else,1])*(self.model.jnt_limited[joint_mask_else]==1)
-            qpos_else_clipped = qpos_else_clipped[0]
-            jointstates_msg.position = np.concatenate((qpos_free, qpos_ball, qpos_else_clipped))
-            # currently, only output velocity for slide & hinge joints
-            jointstates_msg.velocity[qpos_mask_else] = self.data.qvel[self.model.jnt_dofadr][joint_mask_else]
+            jointstates_msg.position = self.data.qpos
+            jointstates_msg.velocity = self.data.qvel
             jointstates_pub.publish(jointstates_msg)
 
             viewer.render()
@@ -141,8 +111,8 @@ class MujocoSim():
     def mujoco_command_callback(self, msg):
         self.mujoco_command = msg.data
 
-    def target_angle_callback(self, msg):
-        self.target_angle = np.asarray(msg.data, dtype=np.float32)
+    def ctrl_callback(self, msg):
+        self.ctrl_ref = np.asarray(msg.data, dtype=np.float32)
 
     def image_callback(self, event):
         timestamp = rospy.Time.now()
