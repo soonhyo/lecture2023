@@ -1,0 +1,122 @@
+<launch>
+  <arg name="RGB_CAMERA_INFO" default="/camera/rgb/camera_info" />
+  <arg name="RGB_IMAGE" default="/camera/rgb/image_raw" />
+  <arg name="DEPTH_IMAGE" default="/camera/depth/image_raw"  />
+  <arg name="CLOUD" default="/camera/depth_registered/points"/>
+  <arg name="INPUT_FRAME" default="panda_link0"/>
+  <arg name="OUTPUT_FRAME" default="camera_frame"/>
+  <arg name="RESIZED_CLOUD" default="resize_filter/output" />
+  <arg name="X_FILTERED_CLOUD" value="xaxis_filter/output" />
+  <arg name="Y_FILTERED_CLOUD" value="yaxis_filter/output" />
+  <arg name="Z_FILTERED_CLOUD" value="zaxis_filter/output" />
+  <arg name="COLOR_FILTERED_CLOUD" value="hsi_filter/output" />
+
+  <group ns="panda_sim">
+    <arg name="MANAGER" value="panda_sim_manager" />
+    <node name="$(arg MANAGER)" pkg="nodelet" type="nodelet" args="manager"/>
+
+    <node pkg="nodelet" type="nodelet" name="point_cloud_xyzrgb"
+      args="load depth_image_proc/point_cloud_xyzrgb $(arg MANAGER)" output="screen" >
+      <remap from="rgb/camera_info" to="$(arg RGB_CAMERA_INFO)" />
+      <remap from="rgb/image_rect_color" to="$(arg RGB_IMAGE)" />
+      <remap from="depth_registered/image_rect" to="$(arg DEPTH_IMAGE)" />
+      <remap from="depth_registered/points" to="$(arg CLOUD)" />
+      <rosparam>
+        queue_size: 100
+      </rosparam>
+    </node>
+
+    <node pkg="tf" type="static_transform_publisher" name="camera_transform_publisher" args="0.3 0.0 1.2 -1.57 0 -2.64 $(arg INPUT_FRAME) $(arg OUTPUT_FRAME) 100" />
+
+    <node name="resize_filter"
+      pkg="nodelet" type="nodelet"
+      args="load jsk_pcl/ResizePointsPublisher $(arg MANAGER)">
+      <remap from="~input" to="$(arg CLOUD)" />
+      <rosparam>
+        step_x: 2
+        step_y: 2
+      </rosparam>
+    </node>
+
+    <node name="xaxis_filter"
+      pkg="nodelet" type="nodelet"
+      args="load pcl/PassThrough $(arg MANAGER)">
+      <remap from="~input" to="$(arg RESIZED_CLOUD)" />
+      <rosparam subst_value="True">
+        keep_organized: true
+        filter_field_name: x
+        filter_limit_min: 0.0
+        filter_limit_max: 2.5
+        input_frame: $(arg INPUT_FRAME)
+        output_frame: $(arg OUTPUT_FRAME)
+      </rosparam>
+    </node>
+
+    <node name="yaxis_filter"
+      pkg="nodelet" type="nodelet"
+      args="load pcl/PassThrough $(arg MANAGER)">
+      <remap from="~input" to="$(arg X_FILTERED_CLOUD)" />
+      <rosparam subst_value="True">
+        keep_organized: true
+        filter_field_name: y
+        filter_limit_min: -1.0
+        filter_limit_max: 1.0
+        input_frame: $(arg INPUT_FRAME)
+        output_frame: $(arg OUTPUT_FRAME)
+      </rosparam>
+    </node>
+
+    <node name="zaxis_filter"
+      pkg="nodelet" type="nodelet"
+      args="load pcl/PassThrough $(arg MANAGER)">
+      <remap from="~input" to="$(arg Y_FILTERED_CLOUD)" />
+      <rosparam subst_value="True">
+        keep_organized: true
+        filter_field_name: z
+        filter_limit_min: -1.0
+        filter_limit_max: 3.0
+        input_frame: $(arg INPUT_FRAME)
+        output_frame: $(arg OUTPUT_FRAME)
+      </rosparam>
+    </node>
+
+    <node name="hsi_filter"
+      pkg="nodelet" type="nodelet"
+      args="load jsk_pcl/HSIColorFilter $(arg MANAGER)">
+      <remap from="~input" to="$(arg Z_FILTERED_CLOUD)" />
+      <rosparam>
+        h_limit_max: 60
+        h_limit_min: -60
+        s_limit_max: 255
+        s_limit_min: 50
+        i_limit_max: 255
+        i_limit_min: 50
+      </rosparam>
+    </node>
+
+    <node name="euclidean_clustering"
+      pkg="nodelet" type="nodelet"
+      args="load jsk_pcl/EuclideanClustering $(arg MANAGER)"
+      output="screen">
+      <remap from="~input" to="$(arg COLOR_FILTERED_CLOUD)" />
+      <rosparam>
+        tolerance: 0.1
+        max_size: 10000
+        min_size: 40
+      </rosparam>
+    </node>
+
+    <node name="euclidean_clustering_decomposer"
+      pkg="nodelet" type="nodelet"
+      args="load jsk_pcl/ClusterPointIndicesDecomposer $(arg MANAGER)"
+      output="screen">
+      <remap from="~input" to="$(arg COLOR_FILTERED_CLOUD)" />
+      <remap from="~target" to="euclidean_clustering/output" />
+      <rosparam>
+        sort_by: "cloud_size"
+        publish_tf: True
+      </rosparam>
+    </node>
+
+  </group>
+</launch>

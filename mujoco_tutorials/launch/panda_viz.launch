@@ -1,0 +1,13 @@
+<launch>
+
+  <arg name="model" default="$(find mujoco_tutorials)/models/panda_robot.urdf"/>
+  <arg name="rviz_config" default="$(find mujoco_tutorials)/config/panda.rviz" />
+  <!-- <arg name="rvizconfig" default="$(find gl80arm_startup)/config/urdf.rviz"/> -->
+
+  <param name="robot_description" textfile="$(arg model)"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  <node name="panda_convert_js_node" pkg="mujoco_tutorials" type="panda_convert_js.py"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)" required="true"/>
+
+</launch>
