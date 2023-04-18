@@ -4,6 +4,7 @@
 ```bash
 pip3 install rospkg
 pip3 install mujoco
+pip3 install opencv-contrib-python
 git clone git@github.com:rohanpsingh/mujoco-python-viewer.git
 cd mujoco-python-viewer
 pip3 install -e .
@@ -31,8 +32,8 @@ wstool init .
     version: develop
 - git:
     local-name: misc/mujoco_menagerie
-    uri: git@github.com:deepmind/mujoco_menagerie.git
-    version: main
+    uri: git@github.com:haraduka/mujoco_menagerie.git
+    version: fix_for_agent_system
 ```
 
 ```bash
@@ -40,17 +41,20 @@ wstool update -t .
 source /opt/ros/$ROS_DISTRO/setup.bash
 rosdep install -y -r --from-paths . --ignore-src
 cd ../
-catkin build mujoco_tutorials
+catkin build
 source devel/setup.bash
 ```
 
 For ubuntu18.04, if you want to publish camera image, please install https://github.com/ros-perception/vision_opencv by Python3 as below,
 ```bash
 mkdir -p ~/python3_ws/src
-cd ~/python3_ws
+wstool init .
 git clone -b $ROS_DISTRO https://github.com/ros-perception/vision_opencv.git
+git clone https://github.com/ros/geometry2.git
+rosdep install -y -r --from-paths . --ignore-src
 catkin config -DPYTHON_EXECUTABLE=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python3.6m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.6m.so
 catkin config --install
-catkin build cv_bridge
-source /path/to/python3_ws/devel/setup.bash
+cd ..
+catkin build
+source ~/python3_ws/devel/setup.bash --extend
 ```

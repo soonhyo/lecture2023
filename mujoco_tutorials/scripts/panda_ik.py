@@ -17,7 +17,7 @@ import pinocchio
 
 
 rospack = RosPack()
-model_path = rospack.get_path("franka_description") + "/robots/panda/panda.urdf"
+model_path = rospack.get_path("mujoco_tutorials") + "/models/panda_robot.urdf"
 model = pinocchio.buildModelFromUrdf(model_path)
 geom_model = pinocchio.buildGeomFromUrdf(model, model_path, pinocchio.GeometryType.COLLISION)
 [geom_model.removeGeometryObject("panda_leftfinger_" + str(i)) for i in range(4)]
