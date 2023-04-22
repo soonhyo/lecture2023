@@ -2,6 +2,7 @@
 
 import os
 import sys
+import argparse
 import numpy as np
 
 import rospy
@@ -13,14 +14,14 @@ import mujoco
 import mujoco_viewer
 
 class MujocoSim():
-    def __init__(self):
+    def __init__(self, model_name):
 
         # initialization of ros node
         rospy.init_node("mujoco_sim")
         self.rospack = RosPack()
 
         # initialization of model, data, viewer of mujoco
-        model_path = self.rospack.get_path("mujoco_tutorials") + "/models/panda_robot.xml"
+        model_path = self.rospack.get_path("mujoco_tutorials") + "/models/" + model_name
         print("# model path: {}".format(model_path))
         self.model = mujoco.MjModel.from_xml_path(model_path)
         self.data = mujoco.MjData(self.model)
@@ -165,7 +166,12 @@ class MujocoSim():
         self.ctrl_ref_time = msg.data[-1]
         self.ctrl_cur_time = 0.0
         self.ctrl_orig = np.asarray([self.data.actuator(i).ctrl[0] for i in range(self.model.nu)])
-        print(self.ctrl_ref, self.ctrl_ref_time)
+        if abs(self.ctrl_ref_time) < 1e-6:
+            self.ctrl_ref = None
+            self.ctrl_ref_time = None
+            self.ctrl_orig = None
+            self.ctrl_cur = np.asarray(msg.data[:-1], dtype=np.float32)
+            self.ctrl_cur_time = None
 
     def image_callback(self, event):
         timestamp = rospy.Time.now()
@@ -194,5 +200,11 @@ class MujocoSim():
         self.camera_info_pub.publish(self.camera_info_msg)
 
 if __name__=="__main__":
-    sim = MujocoSim()
+    parser = argparse.ArgumentParser(
+        description="mujoco simulator with ROS")
+    parser.add_argument("--name", '-n', type=str, required=True,
+                        help='model file name')
+    args = parser.parse_args()
+
+    sim = MujocoSim(args.name)
 

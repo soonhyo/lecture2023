@@ -1,0 +1,58 @@
+ <mujoco model="mobile robot">
+
+  <option noslip_iterations="3"/>
+  <option impratio="10"/>
+
+  <visual>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <quality shadowsize="2048"/>
+    <map stiffness="700" shadowscale="0.5" fogstart="10" fogend="15" zfar="40" haze="0.3"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512"/>
+    <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2"
+      width="512" height="512" mark="cross" markrgb=".8 .8 .8"/>
+    <material name="matplane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true"/>
+  </asset>
+
+  <worldbody>
+    <light directional="true" diffuse=".4 .4 .4" specular="0.1 0.1 0.1" pos="0 0 5.0" dir="0 0 -1" castshadow="false"/>
+    <light directional="true" diffuse=".6 .6 .6" specular="0.2 0.2 0.2" pos="0 0 4" dir="0 0 -1"/>
+    <geom name="ground" type="plane" size="0 0 1" pos="0 0 0" quat="1 0 0 0" material="matplane"/>
+
+    <body name="mobile" pos="0.0 0.0 0.2">
+      <joint name="mobile" type="free"/>
+      <geom pos="0 0 0" type="box" size="0.5 0.3 0.1" mass="10"/>
+      <camera name="camera" mode="fixed" fovy="60" pos="-0.005 0 .165"/>
+      <site name="imu" pos="-0.005 0 .165"/>
+      <body name="wheel_r" pos="0.0 -0.32 0.0" zaxis="0 1 0">
+        <joint name="wheel_joint_r" type="hinge" axis="0 0 1" limited="false"/>
+        <geom type="cylinder" size="0.2 0.02" rgba="1 1 1 0.3"/>
+        <geom type="cylinder" pos="0.1 0 -0.02" size="0.02 0.02" rgba="1 0 0 1"/>
+      </body>
+      <body name="wheel_l" pos="0.0 0.32 0.0" zaxis="0 1 0">
+        <joint name="wheel_joint_l" type="hinge" axis="0 0 1" limited="false"/>
+        <geom type="cylinder" size="0.2 0.02" rgba="1 1 1 0.3"/>
+        <geom type="cylinder" pos="0.1 0 0.02" size="0.02 0.02" rgba="1 0 0 1"/>
+      </body>
+      <body name="wheel_cf" pos="0.30 0.0 -0.1" zaxis="0 1 0">
+        <joint name="wheel_joint_cf" type="hinge" axis="0 0 1" limited="false"/>
+        <geom type="cylinder" size="0.1 0.02" condim="1" rgba="1 1 1 0.3"/>
+      </body>
+      <body name="wheel_cr" pos="-0.30 0.0 -0.1" zaxis="0 1 0">
+        <joint name="wheel_joint_cr" type="hinge" axis="0 0 1" limited="false"/>
+        <geom type="cylinder" size="0.1 0.02" condim="1" rgba="1 1 1 0.3"/>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <velocity kv="10" joint="wheel_joint_r" ctrllimited="true" ctrlrange="-5.0 5.0"/>
+    <velocity kv="10" joint="wheel_joint_l" ctrllimited="true" ctrlrange="-5.0 5.0"/>
+  </actuator>
+  <sensor>
+    <accelerometer name="accelerometer" site="imu" />
+    <gyro name="gyro" site="imu" />
+    <velocimeter name="velocimeter" site="imu" />
+  </sensor>
+</mujoco>

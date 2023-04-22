@@ -5,6 +5,7 @@
 pip3 install rospkg
 pip3 install mujoco
 pip3 install opencv-contrib-python
+pip3 install casadi
 git clone git@github.com:rohanpsingh/mujoco-python-viewer.git
 cd mujoco-python-viewer
 pip3 install -e .
