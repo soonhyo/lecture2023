@@ -6,6 +6,12 @@ pip3 install rospkg
 pip3 install mujoco
 pip3 install opencv-contrib-python
 pip3 install casadi
+pip3 install gym
+pip3 install torch
+pip3 install stable-baselines3[extra]
+pip3 install cvxopt
+pip3 install -U scipy
+
 git clone git@github.com:rohanpsingh/mujoco-python-viewer.git
 cd mujoco-python-viewer
 pip3 install -e .

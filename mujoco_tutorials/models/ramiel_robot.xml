@@ -1,0 +1,162 @@
+<mujoco model="robot">
+    <option collision="predefined" timestep="0.002"/>
+
+    <default>
+        <site size="0.005" rgba="1 1 1 1"/>
+        <default class="hinge_joint">
+            <joint type="hinge" limited="true" damping="2.791846640033648" frictionloss="0.007408681726706612" armature="0.29961752076418613" range="-45 45"/>
+        </default>
+        <default class="slide_joint">
+            <joint type="slide" limited="true" damping="10.865967493977623" frictionloss="3.2711450971350384" armature="2.9922953973753326" range="0.1 1.0"/>
+        </default>
+        <default class="tendon_actuator">
+            <general ctrllimited="true" ctrlrange="-140 0" dyntype="filter" dynprm="0.01786196322087987"/> <!-- for real2sim -->
+        </default>
+        <default class="tendon_spatial">
+            <tendon damping="4.6884142125529555" stiffness="0.496095826657908" frictionloss="0.4618737796327782"/>
+        </default>
+    </default>
+    <asset>
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".8 .8 .8" rgb2=".6 .6 .6" width="512" height="512" mark="cross" markrgb=".8 .8 .8"/>
+        <material name="matplane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true"/>
+        <texture type="skybox" builtin="gradient" rgb1="0.3 0.3 1" rgb2="0 0 0" width="512" height="512"/>
+        <mesh name="main" file="./mesh/mujoco_model_main.STL" scale="1e-3 1e-3 1e-3"/>
+        <mesh name="leg" file="./mesh/mujoco_leg_1000mm.STL" scale="1e-3 1e-3 1e-3"/>
+        <hfield name="heightmap" file="./mesh/heightmap.png" size="2. 2. 0.1 1."/>  <!-- 3rd parameter adjusts max elevation of floor-->
+    </asset>
+    <worldbody>
+        <geom name="floor" pos="0 0 0" euler="0 0 0" size="0 0 .25" type="plane" material="matplane" condim="3"/>
+        <!-- bumpy floor -->
+        <!-- <geom name="floor" type="hfield" hfield="heightmap" pos="0 0 -1.4"/> -->
+        <light directional="true" pos="0 0 3" dir="0 0 -1" castshadow="false"/>
+
+        <body name="base" pos="0 0 1.0">
+            <inertial pos="0 0 0" mass="9.83" diaginertia="0.22 0.22 0.43"/>
+            <joint type="free" axis="0 0 1"/>
+
+            <geom name="main" type="mesh" mesh="main" pos="-0.65 0.56 -0.04" euler="0 0 -90"/>
+
+            <geom type="cylinder" size="0.01" fromto="0 0 0 0.2 0 0" rgba="0 0 1 1"/>
+            <geom type="cylinder" size="0.01" fromto="0 0 0 -0.1 0.1732 0" rgba="0 0 1 1"/>
+            <geom type="cylinder" size="0.01" fromto="0 0 0 -0.1 -0.1732 0" rgba="0 0 1 1"/>
+
+            <!-- support legs for stability when landed -->
+            <geom name="supportA" type = "cylinder" size="0.02 0.075" pos="-0.2 0 -0.115" rgba="0 0 1 1"/>
+            <geom name="supportB" type = "cylinder" size="0.02 0.075" pos="0.1 0.17 -0.115" rgba="0 0 1 1"/>
+            <geom name="supportC" type = "cylinder" size="0.02 0.075" pos="0.1 -0.17 -0.115" rgba="0 0 1 1"/>
+
+            <!-- indicate the direction of the robot even when the robot or view is rotated -->
+            <geom name="forward_marker" type="sphere" size="0.02" pos="0.3 0 0.05" rgba="1 0 0 1"/>
+
+            <!-- tendon attachment points -->
+            <site name="A_bottom" pos="0.294 0 -0.024"/>
+            <site name="B_bottom" pos="-0.147 0.2546 -0.024"/>
+            <site name="C_bottom" pos="-0.147 -0.2546 -0.024"/>
+
+            <site name="A_top" pos="0.12 0 0.024"/>
+            <site name="B_top" pos="-0.06 0.1039 0.024"/>
+            <site name="C_top" pos="-0.06 -0.1039 0.024"/>
+
+            <site name="imu" pos="0 0 0"/>
+
+            <body name="pseudo1">
+                <joint name="roll" class="hinge_joint" axis="1 0 0"/>
+                <inertial pos="0 0 0" mass="0.01" diaginertia="4e-7 4e-7 4e-7"/>
+                <body name="pseudo2">
+                    <joint name="pitch" class="hinge_joint" axis="0 1 0"/>
+                    <inertial pos="0 0 0" mass="0.01" diaginertia="4e-7 4e-7 4e-7"/>
+                    <body name="pole">
+                        <inertial pos="0 0 -0.5" mass="0.50" diaginertia="0.074 0.074 7e-5"/>
+                        <joint name="slide" class="slide_joint" axis="0 0 1"/>
+                        <geom name="pole" type="cylinder" size="0.005" fromto="0 0 0. 0 0 -1.063" rgba="1 0 0 0.3"/>
+                        <geom name="leg_mesh" type="mesh" mesh="leg" pos="0.011 -0.041 -1.07" euler="0 0 60" rgba="1 0 0 1"/>
+                        <site name="top" pos="0 0 0"/>
+
+                        <site name="A_top_leg" pos="0.017 0 0"/>
+                        <site name="B_top_leg" pos="-0.0085 0.0147 0"/>
+                        <site name="C_top_leg" pos="-0.0085 -0.0147 0"/>
+
+                        <site name="A_bottom_leg" pos="0.017 0 -1.026"/>
+                        <site name="B_bottom_leg" pos="-0.0085 0.0147 -1.026"/>
+                        <site name="C_bottom_leg" pos="-0.0085 -0.0147 -1.026"/>
+                        <site name="contact_sensor" pos="0 0 -1.07"/>
+                    </body>
+                </body>
+            </body>
+        </body>
+        <body name="fixed_body"/>
+    </worldbody>
+    <tendon>
+        <spatial name="A_top" class="tendon_spatial">
+            <site site="A_top"/>
+            <site site="A_top_leg"/>
+        </spatial>
+        <spatial name="B_top" class="tendon_spatial">
+            <site site="B_top"/>
+            <site site="B_top_leg"/>
+        </spatial>
+        <spatial name="C_top" class="tendon_spatial">
+            <site site="C_top"/>
+            <site site="C_top_leg"/>
+        </spatial>
+
+        <spatial name="A_bottom" class="tendon_spatial">
+            <site site="A_bottom"/>
+            <site site="A_bottom_leg"/>
+        </spatial>
+        <spatial name="B_bottom" class="tendon_spatial">
+            <site site="B_bottom"/>
+            <site site="B_bottom_leg"/>
+        </spatial>
+        <spatial name="C_bottom" class="tendon_spatial">
+            <site site="C_bottom"/>
+            <site site="C_bottom_leg"/>
+        </spatial>
+    </tendon>
+
+    <actuator>
+        <!-- tension-controlled actuators -->
+        <general name="A_top" tendon="A_top" class="tendon_actuator"/>
+        <general name="B_top" tendon="B_top" class="tendon_actuator"/>
+        <general name="C_top" tendon="C_top" class="tendon_actuator"/>
+
+        <general name="A_bottom" tendon="A_bottom" class="tendon_actuator"/>
+        <general name="B_bottom" tendon="B_bottom" class="tendon_actuator"/>
+        <general name="C_bottom" tendon="C_bottom" class="tendon_actuator"/>
+    </actuator>
+
+    <sensor>
+        <touch name="contact_sensor" site="contact_sensor"/>
+        <accelerometer name="accelerometer" site="imu"/>
+        <gyro name="gyro" site="imu"/>
+        <!-- simulate IMU sensor fusion value with frame orientation sensor -->
+        <framequat name="framequat" objtype="site" objname="imu"/>
+        <!-- the velocity data should actually be acqured from joint movement, but use this for now -->
+        <velocimeter name="velocimeter" site="imu"/>
+        <framepos name="framepos" objtype="site" objname="imu"/>
+        <tendonpos name="A_top" tendon="A_top"/>
+        <tendonpos name="B_top" tendon="B_top"/>
+        <tendonpos name="C_top" tendon="C_top"/>
+        <tendonpos name="A_bottom" tendon="A_bottom"/>
+        <tendonpos name="B_bottom" tendon="B_bottom"/>
+        <tendonpos name="C_bottom" tendon="C_bottom"/>
+        <tendonvel name="dA_top" tendon="A_top"/>
+        <tendonvel name="dB_top" tendon="B_top"/>
+        <tendonvel name="dC_top" tendon="C_top"/>
+        <tendonvel name="dA_bottom" tendon="A_bottom"/>
+        <tendonvel name="dB_bottom" tendon="B_bottom"/>
+        <tendonvel name="dC_bottom" tendon="C_bottom"/>
+    </sensor>
+
+    <contact>
+        <pair geom1="floor" geom2="leg_mesh" friction="0.3 0.3"/>
+        <pair geom1="floor" geom2="supportA"/>
+        <pair geom1="floor" geom2="supportB"/>
+        <pair geom1="floor" geom2="supportC"/>
+        <pair geom1="floor" geom2="main"/>
+    </contact>
+    <equality>
+        <!-- uncomment this if you want fixed leg -->
+        <!-- <weld body1="fixed_body" body2="pole"/> -->
+    </equality>
+</mujoco>
