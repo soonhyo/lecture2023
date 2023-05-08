@@ -212,6 +212,9 @@ class MujocoMPC:
             rate.sleep()
             if rospy.is_shutdown():
                 break
+        ctrl_ref_msg = Float32MultiArray()
+        ctrl_ref_msg.data = [0.0, 0.0, 0.0]
+        ctrl_ref_pub.publish(ctrl_ref_msg)
 
         # シミュレーション結果をプロット
         xs1 = [x[0] for x in xs]
