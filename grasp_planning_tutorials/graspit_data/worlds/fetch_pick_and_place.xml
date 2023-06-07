@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<world>
+  <obstacle>
+    <filename>models/obstacles/cafe_table_surface.xml</filename>
+    <transform>
+      <fullTransform>(+1 +0 +0 +0)[+0 +0 -110]</fullTransform>
+    </transform>
+  </obstacle>
+  <graspableBody>
+    <filename>models/objects/fetch_pick_and_place_cylinder.xml</filename>
+    <transform>
+      <fullTransform>(+1 +0 +0 +0)[+0 +0 +0]</fullTransform>
+    </transform>
+  </graspableBody>
+  <robot>
+    <filename>models/robots/fetch_gripper_modified/fetch_gripper_modified.xml</filename>
+    <dofValues>+5 +5</dofValues>
+    <transform>
+      <fullTransform>(+1 +0 +0 +0)[-250 +0 +0]</fullTransform>
+    </transform>
+  </robot>
+  <camera>
+    <position>+504.372 -398.129 +300.149</position>
+    <orientation>+0.476433 +0.238203 +0.359685 +0.766093</orientation>
+    <focalDistance>+712.691</focalDistance>
+  </camera>
+</world>

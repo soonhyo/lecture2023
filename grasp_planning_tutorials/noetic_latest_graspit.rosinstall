@@ -1,0 +1,16 @@
+- git:
+    local-name: lecture2023
+    uri: https://github.com/agent-system/lecture2023.git
+    version: main
+
+# graspit_interface compatible with noetic (qt5) on 2023/06/11
+- git:
+    local-name: graspit_interface
+    uri: https://github.com/graspit-simulator/graspit_interface.git
+    version: e92f89970fef82568dbaaea46b51ee87196eef2a
+
+# Latest on 2023/06/11
+- git:
+    local-name: graspit_commander
+    uri: https://github.com/graspit-simulator/graspit_commander.git
+    version: 871b6ea613effa11a41992f1da6286bf8b75302b
