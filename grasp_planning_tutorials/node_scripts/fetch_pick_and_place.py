@@ -4,12 +4,19 @@ import copy
 import numpy as np
 import sys
 
+import actionlib
 import moveit_commander
 import rospy
 import tf
+from control_msgs.msg import FollowJointTrajectoryAction
+from control_msgs.msg import FollowJointTrajectoryGoal
+from control_msgs.msg import GripperCommandAction
+from control_msgs.msg import GripperCommandGoal
 from geometry_msgs.msg import Pose
 from geometry_msgs.msg import PoseStamped
 from graspit_commander import GraspitCommander
+from trajectory_msgs.msg import JointTrajectory
+from trajectory_msgs.msg import JointTrajectoryPoint
 
 
 # use raw_input for python2 c.f. https://stackoverflow.com/questions/5868506/backwards-compatible-input-calls-in-python
@@ -30,17 +37,72 @@ class FetchPickAndPlace(object):
         #   self.gc.importObstacle('cafe_table_surface') +
         #   moving them to predefined poses and setting simulator viewpoint
 
+        # Initialize head and gripper
+        # https://github.com/ZebraDevs/fetch_gazebo/blob/0.9.2/fetch_gazebo/scripts/prepare_simulated_robot_pick_place.py
+        rospy.loginfo("Waiting for head_controller...")
+        self.head_client = actionlib.SimpleActionClient(
+            "head_controller/follow_joint_trajectory",
+            FollowJointTrajectoryAction,
+        )
+        self.head_client.wait_for_server()
+        rospy.loginfo("...connected.")
+        rospy.loginfo("Waiting for gripper_controller...")
+        self.gripper_client = actionlib.SimpleActionClient(
+            "gripper_controller/gripper_action",
+            GripperCommandAction,
+        )
+        self.gripper_client.wait_for_server()
+        rospy.loginfo("...connected.")
+
         # Initialize moveit
         ## http://docs.ros.org/en/melodic/api/moveit_tutorials/html/doc/move_group_python_interface/move_group_python_interface_tutorial.html
         moveit_commander.roscpp_initialize(sys.argv)
-        self.robot = moveit_commander.RobotCommander()
-        self.arm_with_torso = moveit_commander.MoveGroupCommander(
+        self.arm_w_t_commander = moveit_commander.MoveGroupCommander(
             'arm_with_torso')
-        self.gripper = moveit_commander.MoveGroupCommander('gripper')
         self.scene = moveit_commander.PlanningSceneInterface()
         self.scene.clear()
+
         # Initialize tf
         self.tfl = tf.TransformListener()
+
+        # Move head to initial pose
+        self.move_head([0, 0.6], 1.0)
+
+    def move_joints(self, client, joint_names, joint_pos, time):
+        if len(joint_names) != len(joint_pos):
+            rospy.logerr(
+                'Must be the same length: {} and {}'.format(
+                    joint_names, joint_pos)
+            )
+            return False
+        traj = JointTrajectory()
+        traj.joint_names = joint_names
+        traj.points.append(JointTrajectoryPoint())
+        traj.points[0].positions = joint_pos
+        traj.points[0].velocities = [0.0] * len(joint_pos)
+        traj.points[0].accelerations = [0.0] * len(joint_pos)
+        traj.points[0].time_from_start = rospy.Duration(time)
+        goal = FollowJointTrajectoryGoal()
+        goal.trajectory = traj
+        goal.goal_time_tolerance = rospy.Duration(0.0)
+        client.send_goal(goal)
+        client.wait_for_result()
+        return True
+
+    def move_head(self, joint_pos, time=5.0):
+        self.move_joints(
+            self.head_client,
+            ['head_pan_joint', 'head_tilt_joint'],
+            joint_pos,
+            time,
+        )
+
+    def move_gripper(self, position, max_effort=10.0):
+        goal = GripperCommandGoal()
+        goal.command.position = position
+        goal.command.max_effort = max_effort
+        self.gripper_client.send_goal(goal)
+        self.gripper_client.wait_for_result()
 
     def wait_for_scene_update(
         self,
@@ -220,42 +282,32 @@ class FetchPickAndPlace(object):
             pregrasp_waypoint_pose.position.z += pregrasp_waypoint_diff[2]
 
             # Move to pregrasp waypoint
-            self.arm_with_torso.set_pose_target(pregrasp_waypoint_pose)
-            plan_to_pregrasp_waypoint = self.arm_with_torso.plan()
+            self.arm_w_t_commander.set_pose_target(pregrasp_waypoint_pose)
+            plan_to_pregrasp_waypoint = self.arm_w_t_commander.plan()
             if not plan_to_pregrasp_waypoint.joint_trajectory.points:
                 rospy.logerr(
                     'Motion planning to pregrasp waypoint failed. Go to next grasp candidate')
                 continue
             self.execute_plan_until_success(
-                self.arm_with_torso, plan_to_pregrasp_waypoint)
-            self.arm_with_torso.stop()
-            self.arm_with_torso.clear_pose_targets()
+                self.arm_w_t_commander, plan_to_pregrasp_waypoint)
+            self.arm_w_t_commander.stop()
+            self.arm_w_t_commander.clear_pose_targets()
 
             # Move to grasp pose
             self.scene.remove_world_object(object_name)
             self.wait_for_scene_update(object_name, obj_is_known=False)
-            plan_to_grasp_pose, _ = self.arm_with_torso.compute_cartesian_path(
+            plan_to_grasp_pose, _ = self.arm_w_t_commander.compute_cartesian_path(
                 [grasp_pose_base], 0.01, 0.0)
             if not plan_to_grasp_pose.joint_trajectory.points:
                 rospy.logerr(
                     'Motion planning to grasp pose failed. Currently we cannot recover from here')
                 return
             self.execute_plan_until_success(
-                self.arm_with_torso, plan_to_grasp_pose)
-            self.arm_with_torso.stop()
+                self.arm_w_t_commander, plan_to_grasp_pose)
+            self.arm_w_t_commander.stop()
 
             # Close gripper
-            gripper_goal = [0, 0]
-            gripper_goal[0] = ((grasp.dofs[0] + grasp.dofs[1]) / 2.0) * 0.01
-            gripper_goal[1] = gripper_goal[0]
-            self.gripper.set_joint_value_target(gripper_goal)
-            plan_to_grasp = self.gripper.plan()
-            if not plan_to_grasp.joint_trajectory.points:
-                rospy.logerr(
-                    'Motion planning to grasp failed. Currently we cannot recover from here')
-                return
-            self.gripper.execute(plan_to_grasp, wait=True)
-            self.gripper.stop()
+            self.move_gripper((grasp.dofs[0] + grasp.dofs[1]) * 0.01)
 
             # Pick & place
             from_pick_to_place = []
@@ -265,37 +317,29 @@ class FetchPickAndPlace(object):
             from_pick_to_place[-1].position.y += 0.1
             from_pick_to_place.append(copy.deepcopy(from_pick_to_place[-1]))
             from_pick_to_place[-1].position.z -= 0.05
-            plan_to_place, _ = self.arm_with_torso.compute_cartesian_path(
+            plan_to_place, _ = self.arm_w_t_commander.compute_cartesian_path(
                 from_pick_to_place, 0.01, 0.0)
             if not plan_to_place.joint_trajectory.points:
                 rospy.logerr(
                     'Motion planning to place failed. Currently we cannot recover from here')
                 return
             self.execute_plan_until_success(
-                self.arm_with_torso, plan_to_place)
-            self.arm_with_torso.stop()
+                self.arm_w_t_commander, plan_to_place)
+            self.arm_w_t_commander.stop()
 
             # Open gripper
-            gripper_goal = [0.05, 0.05]
-            self.gripper.set_joint_value_target(gripper_goal)
-            plan_to_release = self.gripper.plan()
-            if not plan_to_release.joint_trajectory.points:
-                rospy.logerr(
-                    'Motion planning to release failed. Currently we cannot recover from here')
-                return
-            self.gripper.execute(plan_to_release, wait=True)
-            self.gripper.stop()
+            self.move_gripper(0.1)
 
             # Move gripper away
-            postgrasp_pose = self.arm_with_torso.get_current_pose().pose
+            postgrasp_pose = self.arm_w_t_commander.get_current_pose().pose
             postgrasp_pose.position.x += pregrasp_waypoint_diff[0]
             postgrasp_pose.position.y += pregrasp_waypoint_diff[1]
             postgrasp_pose.position.z += pregrasp_waypoint_diff[2]
-            plan_to_postgrasp, _ = self.arm_with_torso.compute_cartesian_path(
+            plan_to_postgrasp, _ = self.arm_w_t_commander.compute_cartesian_path(
                 [postgrasp_pose], 0.01, 0.0)
             self.execute_plan_until_success(
-                self.arm_with_torso, plan_to_postgrasp)
-            self.arm_with_torso.stop()
+                self.arm_w_t_commander, plan_to_postgrasp)
+            self.arm_w_t_commander.stop()
 
             return
 
