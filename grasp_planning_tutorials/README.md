@@ -1,6 +1,6 @@
 # grasp_planning_tutorials
 
-Tutorials for grasp planning with graspit and moveit.
+Tutorials for grasp planning and execution with graspit, moveit, and gazebo.
 
 ## How to install
 
@@ -24,7 +24,7 @@ Tutorials for grasp planning with graspit and moveit.
 
 ### (Not recommended) Install directly
 
-#### Ubuntu 18.04 (with old but safe graspit)
+#### Ubuntu 18.04, ROS Melodic (with old but safe graspit)
 
 ```bash
 mkdir -p ~/ros/ws_grasp_planning/src
@@ -41,7 +41,7 @@ source ~/ros/ws_grasp_planning/devel/setup.bash  # Do this every time you open a
 rosrun grasp_planning_tutorials install_graspit_data
 ```
 
-#### Ubuntu 18.04 (with the latest graspit)
+#### Ubuntu 18.04, ROS Melodic (with the latest graspit)
 
 ```bash
 # Install graspit
@@ -73,7 +73,7 @@ source ~/ros/ws_grasp_planning/devel/setup.bash  # Do this every time you open a
 rosrun grasp_planning_tutorials install_graspit_data
 ```
 
-#### (Not tested) Ubuntu 20.04 (with the latest graspit)
+#### (Not tested) Ubuntu 20.04, ROS Noetic (with the latest graspit)
 
 ```bash
 # Install graspit
@@ -106,6 +106,22 @@ rosrun grasp_planning_tutorials install_graspit_data
 ```
 
 ## How to use
+
+### Grasp planning with a multi-fingered hand
+
+```bash
+roslaunch graspit_interface graspit_interface.launch
+ipython
+```
+In ipython interpreter,
+```python
+from graspit_commander import GraspitCommander
+GraspitCommander.clearWorld()
+GraspitCommander.loadWorld('plannerMug')  # Or 'plannerP51'
+GraspitCommander.planGrasps(max_steps=50000)
+```
+
+### Grasp planning and execution with a parallel gripper
 
 ```bash
 roslaunch grasp_planning_tutorials fetch_pick_and_place.launch

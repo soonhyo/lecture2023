@@ -2,7 +2,7 @@
 <package format="2">
   <name>grasp_planning_tutorials</name>
   <version>0.0.0</version>
-  <description>Tutorials for grasp planning with graspit and moveit</description>
+  <description>Tutorials for grasp planning and execution with graspit, moveit, and gazebo</description>
 
   <maintainer email="pazeshun3684@gmail.com">Shun Hasegawa</maintainer>
   <author email="pazeshun3684@gmail.com">Shun Hasegawa</author>
