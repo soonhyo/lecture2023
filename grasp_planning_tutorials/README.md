@@ -41,7 +41,7 @@ Tutorials for grasp planning and execution with graspit, moveit, and gazebo.
    # Or you can write this in .bashrc to omit this:
    # echo "source ~/ros/ws_grasp_planning/devel/setup.bash" >> ~/.bashrc
    # Be careful because this may affect other software
-   rosrun grasp_planning_tutorials install_graspit_data
+   rosrun grasp_planning_tutorials install_graspit_data  # Ignore permission errors if symbolic links are finally created
    ```
 
 #### Ubuntu 18.04, ROS Melodic (with the latest graspit)
@@ -76,7 +76,7 @@ Tutorials for grasp planning and execution with graspit, moveit, and gazebo.
    # Or you can write this in .bashrc to omit this:
    # echo "source ~/ros/ws_grasp_planning/devel/setup.bash" >> ~/.bashrc
    # Be careful because this may affect other software
-   rosrun grasp_planning_tutorials install_graspit_data
+   rosrun grasp_planning_tutorials install_graspit_data  # Ignore permission errors if symbolic links are finally created
    ```
 
 #### (Not tested) Ubuntu 20.04, ROS Noetic (with the latest graspit)
@@ -111,7 +111,7 @@ Tutorials for grasp planning and execution with graspit, moveit, and gazebo.
    # Or you can write this in .bashrc to omit this:
    # echo "source ~/ros/ws_grasp_planning/devel/setup.bash" >> ~/.bashrc
    # Be careful because this may affect other software
-   rosrun grasp_planning_tutorials install_graspit_data
+   rosrun grasp_planning_tutorials install_graspit_data  # Ignore permission errors if symbolic links are finally created
    ```
 
 ## How to use
