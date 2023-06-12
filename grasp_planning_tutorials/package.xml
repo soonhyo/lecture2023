@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package format="2">
+<package format="3">
   <name>grasp_planning_tutorials</name>
   <version>0.0.0</version>
   <description>Tutorials for grasp planning and execution with graspit, moveit, and gazebo</description>
@@ -17,6 +17,8 @@
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>graspit_commander</exec_depend>
   <exec_depend>graspit_interface</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 2">ipython</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 3">ipython3</exec_depend>
   <exec_depend>moveit_commander</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>tf</exec_depend>
