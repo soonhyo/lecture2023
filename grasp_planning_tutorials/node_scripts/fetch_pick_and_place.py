@@ -307,7 +307,10 @@ class FetchPickAndPlace(object):
             self.arm_w_t_commander.stop()
 
             # Close gripper
-            self.move_gripper((grasp.dofs[0] + grasp.dofs[1]) * 0.01)
+            self.move_gripper(
+                ((grasp.dofs[0] + grasp.dofs[1]) * 0.01)
+                - 0.01  # 0.01m is for making grasp stably
+            )
 
             # Pick & place
             from_pick_to_place = []
