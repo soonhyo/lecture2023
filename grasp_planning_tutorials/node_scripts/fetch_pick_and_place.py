@@ -220,7 +220,8 @@ class FetchPickAndPlace(object):
         table_pose.pose.orientation.y = 0
         table_pose.pose.orientation.z = 0
         table_pose.pose.orientation.w = 1.0
-        self.scene.add_box('table', table_pose, size=(0.913, 0.913, 0.695))
+        self.scene.add_box('table', table_pose, size=(0.93, 0.93, 0.7))
+        # Bigger than original table to prevent robot from grazing table
         self.wait_for_scene_update('table', obj_is_known=True)
 
         # Motion planning & execution
