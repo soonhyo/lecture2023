@@ -13,14 +13,16 @@ Tutorials for grasp planning and execution with graspit, moveit, and gazebo.
     ```
   - Windows:
     Download platform packages for Windows from https://www.virtualbox.org/wiki/Downloads and install it
-- Download the image from (TBD)
+- Download the image from https://drive.google.com/file/d/1NeoblfYeY-UPyACOcD16CZTK3uvjPIl0/view?usp=drive_link
 - Launch VirtualBox and import the image
-  - If you face an error "", you have to enable virtualization on your PC's BIOS
+  - If you face `VT-x is not available (VERR_VMX_NO_VMX).` error, you have to enable virtualization on your PC's BIOS
     - https://www.tekwind.co.jp/ASU/faq/entry_134.php
     - https://support.hp.com/jp-ja/document/ish_5637156-5698290-16
     - https://support.lenovo.com/jp/ja/solutions/ht500006-how-to-enable-virtualization-technology-on-lenovo-computers
 - Start the image
-  - If you face a kernel panic, disable ...
+  - Password: ubuntu
+  - If you face a kernel panic, right-click the image -> `Setting` -> `Storage` -> `Controller: SATA` -> uncheck `Use Host I/O Cache`
+    - This will make the virtual machine slow
 
 ### (Not recommended) Install directly
 
