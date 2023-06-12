@@ -1,5 +1,10 @@
 <launch>
 
+  <!-- For cafe_table model. -->
+  <!-- cafe_table should be downloaded automatically by gazebo, but downloading fails currently. -->
+  <!-- Errors: https://answers.gazebosim.org/question/13234/no-database-tag-in-the-model-database/ -->
+  <env name="GAZEBO_MODEL_PATH" value="$(find grasp_planning_tutorials)/models:$(optenv GAZEBO_MODEL_PATH)" />
+
   <arg name="debug" default="false" />
   <arg name="gui" default="true" />
   <arg name="headless" default="false" />
