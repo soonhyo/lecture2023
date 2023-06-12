@@ -44,7 +44,36 @@ Tutorials for grasp planning and execution with graspit, moveit, and gazebo.
    rosrun grasp_planning_tutorials install_graspit_data  # Ignore permission errors if symbolic links are finally created
    ```
 
-#### Ubuntu 18.04, ROS Melodic (with the latest graspit)
+## How to use
+
+### Grasp planning with a multi-fingered hand
+
+```bash
+roslaunch graspit_interface graspit_interface.launch
+ipython
+```
+In ipython interpreter,
+```python
+from graspit_commander import GraspitCommander
+GraspitCommander.clearWorld()
+GraspitCommander.loadWorld('plannerMug')  # Or 'plannerP51'
+GraspitCommander.planGrasps(max_steps=50000)
+```
+
+### Grasp planning and execution with a parallel gripper
+
+```bash
+roslaunch grasp_planning_tutorials fetch_pick_and_place.launch
+# Wait until robot motion in gazebo finishes
+rosrun grasp_planning_tutorials fetch_pick_and_place.py
+```
+
+## Other installation methods
+
+Currently, the parallel gripper sample does not work with these installation methods due to the following error:  
+https://github.com/graspit-simulator/graspit/issues/170
+
+### Ubuntu 18.04, ROS Melodic (with the latest graspit)
 
 1. [Install ROS Melodic Desktop-Full, setup environment, and install dependencies for building packages](https://wiki.ros.org/melodic/Installation/Ubuntu)
 2. Setup a workspace for grasp_planning_tutorials:
@@ -79,7 +108,7 @@ Tutorials for grasp planning and execution with graspit, moveit, and gazebo.
    rosrun grasp_planning_tutorials install_graspit_data  # Ignore permission errors if symbolic links are finally created
    ```
 
-#### (Not tested) Ubuntu 20.04, ROS Noetic (with the latest graspit)
+### (Not tested) Ubuntu 20.04, ROS Noetic (with the latest graspit)
 
 1. [Install ROS Noetic Desktop-Full, setup environment, and install dependencies for building packages](https://wiki.ros.org/noetic/Installation/Ubuntu)
 2. Setup a workspace for grasp_planning_tutorials:
@@ -113,27 +142,3 @@ Tutorials for grasp planning and execution with graspit, moveit, and gazebo.
    # Be careful because this may affect other software
    rosrun grasp_planning_tutorials install_graspit_data  # Ignore permission errors if symbolic links are finally created
    ```
-
-## How to use
-
-### Grasp planning with a multi-fingered hand
-
-```bash
-roslaunch graspit_interface graspit_interface.launch
-ipython
-```
-In ipython interpreter,
-```python
-from graspit_commander import GraspitCommander
-GraspitCommander.clearWorld()
-GraspitCommander.loadWorld('plannerMug')  # Or 'plannerP51'
-GraspitCommander.planGrasps(max_steps=50000)
-```
-
-### Grasp planning and execution with a parallel gripper
-
-```bash
-roslaunch grasp_planning_tutorials fetch_pick_and_place.launch
-# Wait until robot motion in gazebo finishes
-rosrun grasp_planning_tutorials fetch_pick_and_place.py
-```
