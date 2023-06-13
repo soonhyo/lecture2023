@@ -1,0 +1,44 @@
+<launch>
+
+  <!-- For cafe_table model. -->
+  <!-- cafe_table should be downloaded automatically by gazebo, but downloading fails currently. -->
+  <!-- Errors: https://answers.gazebosim.org/question/13234/no-database-tag-in-the-model-database/ -->
+  <env name="GAZEBO_MODEL_PATH" value="$(find grasp_planning_tutorials)/models:$(optenv GAZEBO_MODEL_PATH)" />
+
+  <arg name="debug" default="false" />
+  <arg name="gui" default="true" />
+  <arg name="headless" default="false" />
+  <arg name="paused" default="false" />
+  <arg name="world_name" default="$(find grasp_planning_tutorials)/worlds/fetch_pick_and_place.world" />
+  <arg name="rviz" default="true" />
+
+  <!-- Launch Gazebo -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)" />
+    <arg name="use_sim_time" value="true" />
+    <arg name="headless" value="$(arg headless)" />
+    <arg name="world_name" value="$(arg world_name)" />
+  </include>
+  <!-- Spawn models into Gazebo -->
+  <node name="spawn_cylinder" pkg="gazebo_ros" type="spawn_model"
+        args="-file $(find grasp_planning_tutorials)/models/fetch_pick_and_place_cylinder/model.sdf -sdf
+              -x 0.6 -y -0.1 -z 0.785 -model fetch_pick_and_place_cylinder" />
+
+  <!-- Launch fetch robot -->
+  <include file="$(find fetch_gazebo)/launch/include/fetch_pp.launch.xml" />
+
+  <!-- Launch grasp planning server -->
+  <include file="$(find graspit_interface)/launch/graspit_interface.launch" />
+
+  <!-- Launch motion planning server -->
+  <include file="$(find fetch_moveit_config)/launch/move_group.launch" />
+
+  <group if="$(arg rviz)">
+    <include file="$(find fetch_moveit_config)/launch/moveit_rviz.launch">
+      <arg name="config" value="true" />
+    </include>
+  </group>
+
+</launch>

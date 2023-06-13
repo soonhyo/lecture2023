@@ -1,0 +1,22 @@
+- git:
+    local-name: lecture2023
+    uri: https://github.com/agent-system/lecture2023.git
+    version: main
+
+# Old graspit that can be installed without "sudo make install"
+- git:
+    local-name: graspit-ros
+    uri: https://github.com/graspit-simulator/graspit-ros.git
+    version: c85889de5f1e750374618baf2b8c528d637ba870
+
+# Old graspit_interface compatible with old graspit
+- git:
+    local-name: graspit_interface
+    uri: https://github.com/graspit-simulator/graspit_interface.git
+    version: 288c360e5fdc75c8e75144de6da178b060cec276
+
+# Old graspit_commander compatible with old graspit
+- git:
+    local-name: graspit_commander
+    uri: https://github.com/graspit-simulator/graspit_commander.git
+    version: 661936332f387b5334c5e56eaf2d5b5e4977ec14

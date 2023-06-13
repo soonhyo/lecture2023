@@ -1,0 +1,35 @@
+#!/bin/bash
+
+echo ""
+echo "This script creates symbolic links of graspit_data files"
+echo "in directory that graspit is installed into"
+echo ""
+
+# Get names of graspit_data files
+graspit_data_path=$(rospack find grasp_planning_tutorials)/graspit_data
+objects=$(find ${graspit_data_path}/models/objects/* -type f | sed "s|^${graspit_data_path}/||")
+obstacles=$(find ${graspit_data_path}/models/obstacles/* -type f | sed "s|^${graspit_data_path}/||")
+robots=$(find ${graspit_data_path}/models/robots/* -maxdepth 0 -type d | sed "s|^${graspit_data_path}/||")
+worlds=$(find ${graspit_data_path}/worlds/* -type f | sed "s|^${graspit_data_path}/||")
+data_names="${objects} ${obstacles} ${robots} ${worlds}"
+
+# Find directory that graspit is installed into
+if env | grep -q ^GRASPIT=
+then
+  echo "Using GRASPIT=" ${GRASPIT}
+else
+  graspit_ros_path=$(rospack find graspit)
+  if [ -n "${graspit_ros_path}" ]
+  then
+    export GRASPIT=${graspit_ros_path}/graspit_source
+  else
+    echo "graspit is not found. Install it first"
+    exit 1
+  fi
+fi
+
+# Create symbolic links
+for name in ${data_names}
+do
+  ln -sfnv ${graspit_data_path}/${name} ${GRASPIT}/${name} || sudo ln -sfnv ${graspit_data_path}/${name} ${GRASPIT}/${name}  # sudo is required when graspit is installed by "sudo make install"
+done
