@@ -1,7 +1,7 @@
 # exudyn_tutorial
 
 ## Installation
-It is assumed that you have already installed Python Version 3.6 or higher, as well as the pip manager.
+It is assumed that you have already installed Python Version 3.8 or higher, as well as the pip manager.
 
 First we need to install the necessary packages:
 - `exudyn`: base package
