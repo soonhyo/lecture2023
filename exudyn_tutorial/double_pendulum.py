@@ -8,6 +8,8 @@ mbs = SC.AddSystem()
 
 # System parameters
 gravity = [0,0,-9.81]
+
+# Link parameters
 mass_link_1 = 1
 mass_link_2 = 5
 length_link_1 = 1.0
@@ -18,6 +20,8 @@ inertia_link_1 = [[1,0,0],
 inertia_link_2 = [[1,0,0],
                   [0,1,0],
                   [0,0,1]]
+
+# Position and orientation parameters
 ground_clearance = 0.2
 position_link_1 = [0,0,length_link_1 + length_link_2 + ground_clearance]
 rotation_matrix_link_1 = RotXYZ2RotationMatrix([pi/2,0,0])
@@ -115,10 +119,12 @@ simulationSettings.timeIntegration.verboseMode = 1
 simulationSettings.timeIntegration.simulateInRealtime = True
 
 # Adjust visualization settings
-SC.visualizationSettings.connectors.showJointAxes = True
+SC.visualizationSettings.connectors.show = False
 SC.visualizationSettings.connectors.jointAxesLength = 0.02
 SC.visualizationSettings.connectors.jointAxesRadius = 0.002
+SC.visualizationSettings.loads.show = False
 SC.visualizationSettings.loads.drawSimplified = False
+SC.visualizationSettings.nodes.show = False
 SC.visualizationSettings.nodes.showBasis = True
 
 # Open the visualization
