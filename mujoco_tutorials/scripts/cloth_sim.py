@@ -98,7 +98,7 @@ class MujocoSim():
             for i in range(self.model.nu):
                 self.data.actuator(i).ctrl[:] = self.ctrl_ref[i:i+1] # [rad]
             mujoco.mj_step(self.model, self.data, nstep=1)
-
+            import ipdb; ipdb.set_trace()
             # publish rostopic
             current_time = rospy.Time.now()
             jointstates_msg.header.stamp = current_time
