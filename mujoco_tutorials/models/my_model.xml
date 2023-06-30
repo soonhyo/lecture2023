@@ -1,0 +1,806 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="my_model">
+  <include file="scene.xml" />
+  <worldbody>
+    <body name="object1" pos="0.02 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o1" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object2" pos="0.04 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o2" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object3" pos="0.06 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o3" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object4" pos="0.08 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o4" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object5" pos="0.1 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o5" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object6" pos="0.12000000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o6" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object7" pos="0.14 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o7" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object8" pos="0.16 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o8" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object9" pos="0.18 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o9" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object10" pos="0.19999999999999998 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o10" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object11" pos="0.21999999999999997 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o11" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object12" pos="0.23999999999999996 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o12" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object13" pos="0.25999999999999995 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o13" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object14" pos="0.27999999999999997 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o14" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object15" pos="0.3 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o15" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object16" pos="0.32 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o16" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object17" pos="0.34 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o17" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object18" pos="0.36000000000000004 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o18" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object19" pos="0.38000000000000006 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o19" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object20" pos="0.4000000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o20" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object21" pos="0.4200000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o21" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object22" pos="0.4400000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o22" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object23" pos="0.46000000000000013 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o23" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object24" pos="0.48000000000000015 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o24" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object25" pos="0.5000000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o25" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object26" pos="0.5200000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o26" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object27" pos="0.5400000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o27" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object28" pos="0.5600000000000002 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o28" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object29" pos="0.5800000000000002 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o29" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object30" pos="0.6000000000000002 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o30" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object31" pos="0.6200000000000002 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o31" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object32" pos="0.6400000000000002 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o32" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object33" pos="0.6600000000000003 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o33" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object34" pos="0.6800000000000003 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o34" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object35" pos="0.7000000000000003 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o35" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object36" pos="0.7200000000000003 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o36" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object37" pos="0.7400000000000003 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o37" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object38" pos="0.7600000000000003 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o38" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object39" pos="0.7800000000000004 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o39" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object40" pos="0.8000000000000004 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o40" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object41" pos="0.8200000000000004 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o41" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object42" pos="0.8400000000000004 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o42" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object43" pos="0.8600000000000004 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o43" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object44" pos="0.8800000000000004 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o44" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object45" pos="0.9000000000000005 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o45" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object46" pos="0.9200000000000005 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o46" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object47" pos="0.9400000000000005 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o47" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object48" pos="0.9600000000000005 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o48" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object49" pos="0.9800000000000005 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o49" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object50" pos="1.0000000000000004 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o50" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object51" pos="1.0200000000000005 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o51" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object52" pos="1.0400000000000005 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o52" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object53" pos="1.0600000000000005 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o53" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object54" pos="1.0800000000000005 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o54" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object55" pos="1.1000000000000005 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o55" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object56" pos="1.1200000000000006 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o56" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object57" pos="1.1400000000000006 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o57" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object58" pos="1.1600000000000006 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o58" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object59" pos="1.1800000000000006 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o59" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object60" pos="1.2000000000000006 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o60" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object61" pos="1.2200000000000006 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o61" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object62" pos="1.2400000000000007 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o62" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object63" pos="1.2600000000000007 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o63" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object64" pos="1.2800000000000007 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o64" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object65" pos="1.3000000000000007 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o65" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object66" pos="1.3200000000000007 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o66" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object67" pos="1.3400000000000007 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o67" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object68" pos="1.3600000000000008 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o68" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object69" pos="1.3800000000000008 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o69" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object70" pos="1.4000000000000008 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o70" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object71" pos="1.4200000000000008 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o71" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object72" pos="1.4400000000000008 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o72" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object73" pos="1.4600000000000009 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o73" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object74" pos="1.4800000000000009 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o74" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object75" pos="1.5000000000000009 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o75" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object76" pos="1.520000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o76" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object77" pos="1.540000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o77" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object78" pos="1.560000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o78" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object79" pos="1.580000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o79" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object80" pos="1.600000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o80" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object81" pos="1.620000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o81" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object82" pos="1.640000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o82" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object83" pos="1.660000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o83" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object84" pos="1.680000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o84" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object85" pos="1.700000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o85" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object86" pos="1.720000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o86" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object87" pos="1.740000000000001 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o87" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object88" pos="1.7600000000000011 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o88" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object89" pos="1.7800000000000011 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o89" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object90" pos="1.8000000000000012 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o90" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object91" pos="1.8200000000000012 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o91" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object92" pos="1.8400000000000012 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o92" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object93" pos="1.8600000000000012 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o93" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object94" pos="1.8800000000000012 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o94" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object95" pos="1.9000000000000012 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o95" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object96" pos="1.9200000000000013 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o96" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object97" pos="1.9400000000000013 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o97" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object98" pos="1.9600000000000013 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o98" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object99" pos="1.9800000000000013 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o99" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+    <body name="object100" pos="2.0000000000000013 0 1" quat="0 -0.707 0 0.707">
+      <composite prefix="o100" type="grid" count="20 1 1" spacing="0.02" offset="0 0 0">
+        <joint kind="main" damping="0.001" />
+        <tendon kind="main" width="0.001" />
+        <geom size=".005" rgba=".8 .2 .1 1" />
+        <pin coord="0" />
+      </composite>
+    </body>
+  </worldbody>
+</mujoco>
